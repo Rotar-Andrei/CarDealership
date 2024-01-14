@@ -1,0 +1,100 @@
+﻿@page "{id:int?}"
+@model CarDealership.Pages.Clients.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Email)
+            <th>
+                    @Html.DisplayNameFor(model => model.Client[0].TD.TestDate)
+            </th>
+
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ClientData.Clients)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.ClientID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TD.TestDate)
+                </td>
+            <td>
+                    <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@if (Model.ClientData.Clients != null)
+{
+    <h3>Cars chosen by the clients</h3>
+    <table class="table">
+
+        @foreach (var item in Model.ClientData.Clients)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.ClientID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+
+                <td>
+                    @{
+                        foreach (var b in item.Brands)
+                        {
+
+                            @b.Brand @: @b.Model @b.Manufacture 
+
+                            <br />
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+}
