@@ -23,7 +23,7 @@ namespace CarDealership.Pages.Clients
         public IActionResult OnGet()
         {
             ViewData["TDID"] = new SelectList(_context.Set<TD>(), "ID",
-"TestDrive");
+"TestDate");
 
             return Page();
         }
